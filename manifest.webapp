@@ -18,8 +18,10 @@
       },
       "telephony": {
         "description" : "Make calls"
+      },
+      "audio-capture" : {
+        "description" : "Audio capture"
       }
-   
 
     }
 }
