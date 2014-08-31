@@ -1,43 +1,63 @@
 
 
 var speakbtn = document.querySelector("#speak");
+var sayaudio = document.querySelector("#say");
+
+document.querySelector("#ringdiv1").style.display = 'none';
+document.querySelector("#ringdiv2").style.display = 'none';
+document.querySelector("#lblstatus").style.display = 'none';
+
 
 var speechrecognitionlist = new SpeechGrammarList();
-var recognition = new SpeechRecognition();     
 speechrecognitionlist.addFromString  ( "#JSGF V1.0; grammar test; public <simple> =  john murphy | chris lee | andre natal  ; ", 1 );     
+var recognition = new SpeechRecognition();     
 recognition.grammars = speechrecognitionlist;                    
 
 
-speakbtn.onclick = function () 
-{
+      speakbtn.onclick = function () 
+      {       
+        sayaudio.play();
+      }  
 
+      sayaudio.addEventListener("play", function() 
+      {
+        changelabel('Please, say the name of the contact');
+      });
 
-    recognition.start();
-    recognition.onresult = function(event) {
+       sayaudio.addEventListener("ended", function() 
+       {
+            changelabel("Listening...");              
+            sayaudio.currentTime = 0;
+            document.querySelector("#ringdiv1").style.display = 'block';
+            document.querySelector("#ringdiv2").style.display = 'block';
+            document.querySelector("#lblstatus").style.display = 'block';
 
-      console.log("recognition.onresult called");
+            console.log('starting')
+            recognition.start();
+            recognition.onresult = function(event) 
+            {
+                  document.querySelector("#ringdiv1").style.display = 'none';
+                  document.querySelector("#ringdiv2").style.display = 'none';
+                  
+                  var interim_transcript = '';
+                  var score = '';
 
-      var interim_transcript = '';
-      var score = '';
+                  // Assemble the transcript from the array of results
+                  for (var i = event.resultIndex; i < event.results.length; ++i) {
+                      if (event.results[i].isFinal) {
+                          console.log("recognition.onresult : isFinal");                                
+                          final_transcript += event.results[i][0].transcript;
+                      } else {
+                          console.log("recognition.onresult : not isFinal");                                                                
+                          interim_transcript += event.results[i][0].transcript;
+                          score = event.results[i][0].confidence;
+                      }
+                  }
 
-      // Assemble the transcript from the array of results
-      for (var i = event.resultIndex; i < event.results.length; ++i) {
-          if (event.results[i].isFinal) {
-              console.log("recognition.onresult : isFinal");                                
-              final_transcript += event.results[i][0].transcript;
-          } else {
-              console.log("recognition.onresult : not isFinal");                                                                
-              interim_transcript += event.results[i][0].transcript;
-              score = event.results[i][0].confidence;
-          }
-      }
-
-      console.log("interim:  " + interim_transcript);
-
-      searchcontact(interim_transcript);
-
-  };
-}  
+                  changelabel(interim_transcript);
+                  searchcontact(interim_transcript);
+            };
+        });
 
 function searchcontact(name)
 {
@@ -72,14 +92,22 @@ function call(number)
     // Place a call
     var telCall = tel.dial(number);  
     telCall.onactive = function(e) {
+        changelabel("");          
         window.console.log('Connected!');
     }
     telCall.ondisconnected = function(e) {
+        changelabel("");          
         window.console.log('Disconnected!');
         // update call history
     }
     telCall.onerror = function(e) {
+        changelabel("");          
         window.console.error(e);
     }
-
 }
+
+function changelabel(str){
+  document.querySelector("#lblstatus").style.display = 'block';  
+  document.querySelector("#lblstatus").innerHTML = str;
+}
+

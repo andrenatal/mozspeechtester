@@ -4,7 +4,9 @@
   "type" : "certified",
   "launch_path": "/index.html",
   "icons": {
-    "128": "/img/icon-128.png"
+    "128": "/img/icon.png",
+    "120": "/img/icon.png",
+    "512": "/img/icon.png"
   },
   "developer": {
     "name": "Andre Natal",
