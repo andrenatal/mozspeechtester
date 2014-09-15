@@ -11,11 +11,11 @@ document.querySelector("#listening").style.display = 'none';
 var speechrecognitionlist = new SpeechGrammarList();
 speechrecognitionlist.addFromString  ( "#JSGF V1.0; grammar test; public <simple> =  call john murphy | how is the weather today| how many messages i have ; ", 1 );     
 var recognition = new SpeechRecognition();     
-recognition.grammars = speechrecognitionlist;                    
 
+console.log("speakbtn");
 
 speakbtn.onclick = function () 
-{       
+{ 
   recognizing = true;
   say("Please, say what you want"); 
 }  
