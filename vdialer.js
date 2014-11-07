@@ -123,7 +123,7 @@ function onendspeak()
 
           if (interim_transcript.indexOf('call') > -1)
           {
-            say("Ok. I am calling Jessica.")
+            say("Ok. I am calling Samanta.")
 
             document.querySelector("#weather").style.display = 'none';
             document.querySelector("#messages").style.display = 'none';
@@ -136,7 +136,7 @@ function onendspeak()
 
             setTimeout(function(){      
 
-                searchcontact("john murphy");
+                searchcontact("Samanta");
             
              }, 5000);   
 
