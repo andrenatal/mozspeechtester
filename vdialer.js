@@ -67,7 +67,7 @@ function onendspeak()
 
           if (interim_transcript.indexOf('weather') > -1)
           {
-            say("Today is a sunny day in Mountain View with 75 degrees");
+            say("Today it is 75 degrees and sunny in Mountain View");
             document.querySelector("#weather").style.display = 'none';
             document.querySelector("#messages").style.display = 'none';
             document.querySelector("#tel").style.display = 'none';
