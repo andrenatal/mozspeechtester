@@ -9,7 +9,7 @@ document.querySelector("#listening").style.display = 'none';
 
 
 var speechrecognitionlist = new SpeechGrammarList();
-speechrecognitionlist.addFromString  ( "#JSGF V1.0; grammar test; public <simple> =  please call my wife  | firefox what is the weather today|  how many messages i have | please text sandip and say i am late  | firefox check my battery ; ", 1 );     
+speechrecognitionlist.addFromString  ( "#JSGF V1.0; grammar test; public <simple> =  please call my wife  | firefox what is the weather today|  how many messages i have | please text josh and say i am late  | firefox check my battery ; ", 1 );     
 var recognition = new SpeechRecognition();     
 
 console.log("speakbtn");
@@ -17,7 +17,7 @@ console.log("speakbtn");
 speakbtn.onclick = function () 
 { 
   recognizing = true;
-  say("Say what you want"); 
+  say("How can I help you?"); 
 }  
 
 
@@ -67,7 +67,7 @@ function onendspeak()
 
           if (interim_transcript.indexOf('weather') > -1)
           {
-            say("Today is a sunny day in Mountain View with 24 degrees");
+            say("Today is a sunny day in Mountain View with 75 degrees");
             document.querySelector("#weather").style.display = 'none';
             document.querySelector("#messages").style.display = 'none';
             document.querySelector("#tel").style.display = 'none';
@@ -81,7 +81,7 @@ function onendspeak()
 
          if (interim_transcript.indexOf('messages') > -1)
           {
-            say("You have 3 texts and 20 emails unread."); 
+            say("You have 3 texts and 20 unread emails."); 
             document.querySelector("#weather").style.display = 'none';
             document.querySelector("#messages").style.display = 'none';
             document.querySelector("#tel").style.display = 'none';
@@ -95,7 +95,7 @@ function onendspeak()
 
          if (interim_transcript.indexOf('text') > -1)
           {
-            say("Ok. I am texting Sandip saying you are late"); 
+            say("Ok. I am texting Josh saying you are late"); 
             document.querySelector("#weather").style.display = 'none';
             document.querySelector("#messages").style.display = 'none';
             document.querySelector("#tel").style.display = 'none';
