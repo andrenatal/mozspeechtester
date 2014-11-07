@@ -9,7 +9,7 @@ document.querySelector("#listening").style.display = 'none';
 
 
 var speechrecognitionlist = new SpeechGrammarList();
-speechrecognitionlist.addFromString  ( "#JSGF V1.0; grammar test; public <simple> =  call john murphy | how is the weather today| how many messages i have ; ", 1 );     
+speechrecognitionlist.addFromString  ( "#JSGF V1.0; grammar test; public <simple> =  please call my wife  | firefox what is the weather today|  how many messages i have | please text sandip and say i am late  | firefox check my battery ; ", 1 );     
 var recognition = new SpeechRecognition();     
 
 console.log("speakbtn");
@@ -17,7 +17,7 @@ console.log("speakbtn");
 speakbtn.onclick = function () 
 { 
   recognizing = true;
-  say("Please, say what you want"); 
+  say("Say what you want"); 
 }  
 
 
@@ -33,8 +33,11 @@ function onendspeak()
     document.querySelector("#lblstatus").style.display = 'block';
 
     document.querySelector("#weather").style.display = 'none';
-    document.querySelector("#messages").style.display = 'none'
+    document.querySelector("#messages").style.display = 'none';
     document.querySelector("#tel").style.display = 'none';
+    document.querySelector("#fox").style.display = 'none';
+    document.querySelector("#text").style.display = 'none';            
+    document.querySelector("#battery").style.display = 'none'; 
 
     console.log('starting')
     recognition.start();
@@ -64,34 +67,72 @@ function onendspeak()
 
           if (interim_transcript.indexOf('weather') > -1)
           {
-            say("Today is a sunny day in Sao Paulo with 24 degrees. Mainly clear in the evening followed by late-night low clouds")
-            document.querySelector("#weather").style.display = 'block';
+            say("Today is a sunny day in Mountain View with 24 degrees");
+            document.querySelector("#weather").style.display = 'none';
             document.querySelector("#messages").style.display = 'none';
             document.querySelector("#tel").style.display = 'none';
             document.querySelector("#fox").style.display = 'none';
+            document.querySelector("#text").style.display = 'none';            
+            document.querySelector("#battery").style.display = 'none';                        
+
+            document.querySelector("#weather").style.display = 'block'; 
 
           }
 
          if (interim_transcript.indexOf('messages') > -1)
           {
-            say("You have twelve unread messages. Albert McKinsey sent 3 emails yesterday."); 
-            document.querySelector("#messages").style.display = 'block';
-
+            say("You have 3 texts and 20 emails unread."); 
             document.querySelector("#weather").style.display = 'none';
-            document.querySelector("#messages").style.display = 'block';
+            document.querySelector("#messages").style.display = 'none';
             document.querySelector("#tel").style.display = 'none';
             document.querySelector("#fox").style.display = 'none';
+            document.querySelector("#text").style.display = 'none';            
+            document.querySelector("#battery").style.display = 'none';                        
+
+            document.querySelector("#messages").style.display = 'block'; 
 
           }
 
+         if (interim_transcript.indexOf('text') > -1)
+          {
+            say("Ok. I am texting Sandip saying you are late"); 
+            document.querySelector("#weather").style.display = 'none';
+            document.querySelector("#messages").style.display = 'none';
+            document.querySelector("#tel").style.display = 'none';
+            document.querySelector("#fox").style.display = 'none';
+            document.querySelector("#text").style.display = 'none';            
+            document.querySelector("#battery").style.display = 'none';                        
+
+            document.querySelector("#text").style.display = 'block';            
+
+          }   
+
+         if (interim_transcript.indexOf('battery') > -1)
+          {
+            say("I still have 75 percent of battery remaining."); 
+            document.querySelector("#weather").style.display = 'none';
+            document.querySelector("#messages").style.display = 'none';
+            document.querySelector("#tel").style.display = 'none';
+            document.querySelector("#fox").style.display = 'none';
+            document.querySelector("#text").style.display = 'none';            
+            document.querySelector("#battery").style.display = 'none';                        
+
+            document.querySelector("#battery").style.display = 'block'; 
+
+          }          
+
           if (interim_transcript.indexOf('call') > -1)
           {
-            say("Calling John Murphy.")
+            say("Ok. I am calling Jessica.")
 
             document.querySelector("#weather").style.display = 'none';
             document.querySelector("#messages").style.display = 'none';
-            document.querySelector("#tel").style.display = 'block';
+            document.querySelector("#tel").style.display = 'none';
             document.querySelector("#fox").style.display = 'none';
+            document.querySelector("#text").style.display = 'none';            
+            document.querySelector("#battery").style.display = 'none';                        
+
+            document.querySelector("#tel").style.display = 'block'; 
 
             setTimeout(function(){      
 
