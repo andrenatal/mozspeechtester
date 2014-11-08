@@ -9,7 +9,7 @@ document.querySelector("#listening").style.display = 'none';
 
 
 var speechrecognitionlist = new SpeechGrammarList();
-speechrecognitionlist.addFromString  ( "#JSGF V1.0; grammar test; public <simple> =  please call my wife  | firefox what is the weather today|  how many messages i have | please text josh and say i am late  | firefox check my battery ; ", 1 );     
+speechrecognitionlist.addFromString  ( "#JSGF V1.0; grammar test; public <simple> =  por favor ligar esposa | como está o tempo hoje | quantas mensagens eu tenho | quanto resta de bateria | avise roberto que estou atrasado ;  ", 1 );     
 var recognition = new SpeechRecognition();     
 
 console.log("speakbtn");
@@ -65,9 +65,9 @@ function onendspeak()
           console.log("interim_transcript");
 
 
-          if (interim_transcript.indexOf('weather') > -1)
+          if (interim_transcript.indexOf('tempo') > -1)
           {
-            say("Today it is 75 degrees and sunny in Mountain View");
+            say("Hoje está 20 graus e chovendo em São Paulo");
             document.querySelector("#weather").style.display = 'none';
             document.querySelector("#messages").style.display = 'none';
             document.querySelector("#tel").style.display = 'none';
@@ -79,9 +79,9 @@ function onendspeak()
 
           }
 
-         if (interim_transcript.indexOf('messages') > -1)
+         if (interim_transcript.indexOf('mensagens') > -1)
           {
-            say("You have 3 texts and 20 unread emails."); 
+            say("Você tem 4 mensagens não lidas."); 
             document.querySelector("#weather").style.display = 'none';
             document.querySelector("#messages").style.display = 'none';
             document.querySelector("#tel").style.display = 'none';
@@ -93,9 +93,9 @@ function onendspeak()
 
           }
 
-         if (interim_transcript.indexOf('text') > -1)
+         if (interim_transcript.indexOf('atrasado') > -1)
           {
-            say("Ok. I am texting Josh saying you are late"); 
+            say("Ok. Estou enviando uma mensagem para Roberto avisando que você está atrasado"); 
             document.querySelector("#weather").style.display = 'none';
             document.querySelector("#messages").style.display = 'none';
             document.querySelector("#tel").style.display = 'none';
@@ -107,9 +107,9 @@ function onendspeak()
 
           }   
 
-         if (interim_transcript.indexOf('battery') > -1)
+         if (interim_transcript.indexOf('bateria') > -1)
           {
-            say("I still have 75 percent of battery remaining."); 
+            say("Eu ainda tenho 97 porcento de bateria."); 
             document.querySelector("#weather").style.display = 'none';
             document.querySelector("#messages").style.display = 'none';
             document.querySelector("#tel").style.display = 'none';
@@ -121,9 +121,9 @@ function onendspeak()
 
           }          
 
-          if (interim_transcript.indexOf('call') > -1)
+          if (interim_transcript.indexOf('ligar') > -1)
           {
-            say("Ok. I am calling Samanta.")
+            say("Ok. Estou ligando para Samanta.")
 
             document.querySelector("#weather").style.display = 'none';
             document.querySelector("#messages").style.display = 'none';
@@ -148,7 +148,7 @@ function onendspeak()
 function say(phrase)
 {
     changelabel(phrase);
-    urlaudio = "http://speechan.cloudapp.net/weblayer/synth.ashx?lng=en&msg=" + phrase;
+    urlaudio = "http://speechan.cloudapp.net/weblayer/synth.ashx?lng=pt-br&msg=" + phrase;
  //   sayaudio.setAttribute("src","http://speechan.cloudapp.net/weblayer/synth.ashx?lng=en&msg=" + phrase); 
 
     setTimeout(function(){      
