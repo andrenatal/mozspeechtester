@@ -148,7 +148,7 @@ function onendspeak()
 function say(phrase,file)
 {
     changelabel(phrase);
-    /*
+    
     urlaudio =  file + ".ogg";
  //   sayaudio.setAttribute("src","http://speechan.cloudapp.net/weblayer/synth.ashx?lng=en&msg=" + phrase); 
 
@@ -162,8 +162,8 @@ function say(phrase,file)
 
 
      }, 500);
-*/
-onendspeak();
+
+//onendspeak();
  
 
 }
