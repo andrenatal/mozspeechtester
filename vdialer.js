@@ -9,7 +9,7 @@ document.querySelector("#listening").style.display = 'none';
 
 
 var speechrecognitionlist = new SpeechGrammarList();
-speechrecognitionlist.addFromString  ( "  #JSGF V1.0; grammar test; public <simple> =    拨 电话 给 老婆 | 今天 天气 如何 | 我 有 多少 简讯 | 发 简讯 给 小明 说 我 晚点 到 | 手机 还 剩 多少 电量 ; ", 1 );     
+speechrecognitionlist.addFromString  ( "  #JSGF V1.0; grammar test; public <simple> =    拨 电话 给 老婆 | 今天 天气 如何 | 我 有 多少 讯息 | 发 简讯 给 小明 说 我 晚点 到 | 手机 还 剩 多少 电量 ; ", 1 );     
 var recognition = new SpeechRecognition();     
 
 console.log("speakbtn");
@@ -79,7 +79,7 @@ function onendspeak()
 
           }
 
-         if (interim_transcript.indexOf('多少 简讯') > -1)
+         if (interim_transcript.indexOf('讯息') > -1)
           {
             say("你有三封简讯和二十则未读邮件","message"); 
             document.querySelector("#weather").style.display = 'none';
