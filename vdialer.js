@@ -9,7 +9,7 @@ document.querySelector("#listening").style.display = 'none';
 
 
 var speechrecognitionlist = new SpeechGrammarList();
-speechrecognitionlist.addFromString  ( "#JSGF V1.0; grammar test; public <simple> =  por favor ligar esposa | como está o tempo hoje | quantas mensagens eu tenho | quanto resta de bateria | avise roberto que estou atrasado ;  ", 1 );     
+speechrecognitionlist.addFromString  ( "  #JSGF V1.0; grammar test; public <simple> =    拨 电话 给 老婆 | 今天 天气 如何 | 我 有 多少 简讯 | 发 简讯 给 小明 说 我 晚点 到 | 手机 还 剩 多少 电量 ; ", 1 );     
 var recognition = new SpeechRecognition();     
 
 console.log("speakbtn");
@@ -17,7 +17,7 @@ console.log("speakbtn");
 speakbtn.onclick = function () 
 { 
   recognizing = true;
-  say("How can I help you?"); 
+  say("How can I help you?","say"); 
 }  
 
 
@@ -65,9 +65,9 @@ function onendspeak()
           console.log("interim_transcript");
 
 
-          if (interim_transcript.indexOf('tempo') > -1)
+          if (interim_transcript.indexOf('天气') > -1)
           {
-            say("Hoje está 20 graus e chovendo em São Paulo");
+            say("台北今天是晴天，气温是摄氏二十五度","weather");
             document.querySelector("#weather").style.display = 'none';
             document.querySelector("#messages").style.display = 'none';
             document.querySelector("#tel").style.display = 'none';
@@ -79,9 +79,9 @@ function onendspeak()
 
           }
 
-         if (interim_transcript.indexOf('mensagens') > -1)
+         if (interim_transcript.indexOf('多少 简讯') > -1)
           {
-            say("Você tem 4 mensagens não lidas."); 
+            say("你有三封简讯和二十则未读邮件","message"); 
             document.querySelector("#weather").style.display = 'none';
             document.querySelector("#messages").style.display = 'none';
             document.querySelector("#tel").style.display = 'none';
@@ -93,9 +93,9 @@ function onendspeak()
 
           }
 
-         if (interim_transcript.indexOf('atrasado') > -1)
+         if (interim_transcript.indexOf('发 简讯') > -1)
           {
-            say("Ok. Estou enviando uma mensagem para Roberto avisando que você está atrasado"); 
+            say("好的，正在发送简讯给小明说你晚点到","text"); 
             document.querySelector("#weather").style.display = 'none';
             document.querySelector("#messages").style.display = 'none';
             document.querySelector("#tel").style.display = 'none';
@@ -107,9 +107,9 @@ function onendspeak()
 
           }   
 
-         if (interim_transcript.indexOf('bateria') > -1)
+         if (interim_transcript.indexOf('电量') > -1)
           {
-            say("Eu ainda tenho 97 porcento de bateria."); 
+            say("手机电量还剩百分之七十五","battery"); 
             document.querySelector("#weather").style.display = 'none';
             document.querySelector("#messages").style.display = 'none';
             document.querySelector("#tel").style.display = 'none';
@@ -121,9 +121,9 @@ function onendspeak()
 
           }          
 
-          if (interim_transcript.indexOf('ligar') > -1)
+          if (interim_transcript.indexOf('电话') > -1)
           {
-            say("Ok. Estou ligando para Samanta.")
+            say("好的，拨电话给老婆中","wife");
 
             document.querySelector("#weather").style.display = 'none';
             document.querySelector("#messages").style.display = 'none';
@@ -145,10 +145,11 @@ function onendspeak()
     };
 }
 
-function say(phrase)
+function say(phrase,file)
 {
     changelabel(phrase);
-    urlaudio = "http://speechan.cloudapp.net/weblayer/synth.ashx?lng=pt-br&msg=" + phrase;
+    /*
+    urlaudio =  file + ".ogg";
  //   sayaudio.setAttribute("src","http://speechan.cloudapp.net/weblayer/synth.ashx?lng=en&msg=" + phrase); 
 
     setTimeout(function(){      
@@ -161,7 +162,7 @@ function say(phrase)
 
 
      }, 500);
-
+*/
  
 
 }
