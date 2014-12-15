@@ -163,6 +163,7 @@ function say(phrase,file)
 
      }, 500);
 */
+onendspeak();
  
 
 }
