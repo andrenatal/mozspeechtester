@@ -10,7 +10,7 @@ document.querySelector("#listening").style.display = 'none';
 
 
 var speechrecognitionlist = new SpeechGrammarList();
-speechrecognitionlist.addFromString  ( " #JSGF V1.0; grammar test; <numbers> = zero | one | two | three | four | five | six | seven | eight | nine; public <final_digits> = <numbers>+;", 1 );
+speechrecognitionlist.addFromString  ( " #JSGF V1.0; grammar test; <numbers> = oh | zero | one | two | three | four | five | six | seven | eight | nine; public <final_digits> = <numbers>+;", 1 );
 var recognition = new SpeechRecognition();
 
 console.log("speakbtn");
