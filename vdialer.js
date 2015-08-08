@@ -9,9 +9,18 @@ document.querySelector("#listening").style.display = 'none';
 //document.querySelector("#lblstatus").style.display = 'none';
 
 
+var sr = new SpeechRecognition();
+sr.lang ="en-US";
+var sgl = new SpeechGrammarList();
+sgl.addFromString("#JSGF V1.0; grammar test; <numbers> = feijoada de domingo no morro | zero | one | two | three | four | five | six | seven | eight | nine; public <final_digits> = <numbers>+;" ,1);
+sr. grammars = sgl;
+
+
+/*
 var speechrecognitionlist = new SpeechGrammarList();
-speechrecognitionlist.addFromString  ( " #JSGF V1.0; grammar test; <numbers> = ow | zero | one | two | three | four | five | six | seven | eight | nine; public <final_digits> = <numbers>+;", 1 );
+speechrecognitionlist.addFromString  ( " #JSGF V1.0; grammar test; <numbers> = favela maloqueiro lixeira | zero | one | two | three | four | five | six | seven | eight | nine; public <final_digits> = <numbers>+;", 1 );
 var recognition = new SpeechRecognition();
+*/
 
 console.log("speakbtn");
 
@@ -41,8 +50,8 @@ function onendspeak()
     document.querySelector("#battery").style.display = 'none';
 
     console.log('starting')
-    recognition.start();
-    recognition.onresult = function(event)
+    sr.start(); // Validation of sr.grammars occurs here
+    sr.onresult = function(event)
     {
           recognizing = false;
           document.querySelector("#listening").style.display = 'none';
