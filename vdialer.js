@@ -12,7 +12,7 @@ document.querySelector("#listening").style.display = 'none';
 var sr = new SpeechRecognition();
 sr.lang ="en-US";
 var sgl = new SpeechGrammarList();
-sgl.addFromString("#JSGF V1.0; grammar test;  <numeros> = um | dois | tres | quatro | cinco | seis | sete | oito | nove ; public <numbers> = <numeros>+; " ,1);
+sgl.addFromString("#JSGF V1.0; grammar test;  <numeros> =  zero | /0.1/ oh | one | two | three | four | five | six | seven | eight | nine ; public <numbers> = <numeros>+; " ,1);
 sr. grammars = sgl;
 
 
