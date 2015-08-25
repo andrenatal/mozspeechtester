@@ -1,6 +1,6 @@
 {
   "name": "Mozspeech",
-  "description": "Mozspeech Benchmark",
+  "description": "Mozspeech",
   "type" : "certified",
   "launch_path": "/index.html",
   "icons": {
@@ -10,7 +10,7 @@
   },
   "developer": {
     "name": "Andre Natal",
-    "url": "http://your-homepage-here.org"
+    "url": "http://www.mozilla.org"
   },
   "default_locale": "en",
    "permissions": {
