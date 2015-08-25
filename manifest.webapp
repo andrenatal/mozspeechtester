@@ -1,6 +1,6 @@
 {
-  "name": "Vaani",
-  "description": "Firefox os Voice Dialer",
+  "name": "Mozspeech",
+  "description": "Mozspeech Benchmark",
   "type" : "certified",
   "launch_path": "/index.html",
   "icons": {
@@ -14,13 +14,6 @@
   },
   "default_locale": "en",
    "permissions": {
-      "contacts": {
-        "description" : "Reading out contacts",
-        "access": "readcreate"
-      },
-      "telephony": {
-        "description" : "Make calls"
-      },
       "audio-capture" : {
         "description" : "Audio capture"
       }
