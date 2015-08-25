@@ -1,147 +1,141 @@
-
-
+var client = new BinaryClient('ws://speechan.cloudapp.net:9000');
 var speakbtn = document.querySelector("#speak");
 var sayaudio = document.querySelector("#say");
 var recognizing = false;
 var final_transcript = "";
-
-document.querySelector("#listening").style.display = 'none';
-//document.querySelector("#lblstatus").style.display = 'none';
-
+var _stream;
+var mediaRecorder;
 
 var sr = new SpeechRecognition();
 sr.lang ="en-US";
 var sgl = new SpeechGrammarList();
-sgl.addFromString("#JSGF V1.0; grammar test;  <numeros> =  /0.000001/ ow | zero  | one | two | three | four | five | six | seven | eight | nine ; public <numbers> = <numeros>+; " ,1);
+sgl.addFromString("#JSGF V1.0; grammar test;  <numeros> =  oh | 0  | 1 | 2 | 3 | 4 | 5 | 6 | 7 |  8 |  9 ; public <numbers> = <numeros>+; " ,1);
 sr. grammars = sgl;
 
 
-console.log("speakbtn");
+
+// Wait for connection to BinaryJS server
+client.on('open', function(){
+    changelabel("You are connected with our server. Please, push the microphone to start testing.");
+});
+
+// Wait for connection to BinaryJS server
+client.on('error', function(){
+    changelabel("Sorry, we can't connect you with our server. Please check your connection.");
+});
+
+navigator.mozGetUserMedia({audio: true},
+    function(stream){
+        // if everything ok
+        var options = {};
+        _stream = stream;
+        success_gum(_stream) ;
+        nomike = false;
+    } ,
+    function(_error){
+        if (error) error(_error)
+        nomike = true;
+    } 
+);
+
+function success_gum(stream){
+    mediaRecorder = new MediaRecorder(stream);
+    mediaRecorder.ondataavailable = function(e) {
+        sendVoice(e);
+        //wsstream = client.send(e.data, {name: "audio", size: e.data.size});
+  };
+  mediaRecorder.onerror = function(e){
+        console.log('on error');
+
+  };
+
+  mediaRecorder.onstop = function()
+  {
+      console.log('mediarecorder stopped');
+  };
+}
+
+function sendVoice(e)
+{
+    randomnumber= +new Date();
+    var stream = client.send(e.data, {name:  randomnumber + "audio.opus" , size: e.data.size});
+    var stream = client.send(final_transcript, {name: randomnumber + "asr.txt", size: final_transcript.length});
+    console.log("streaming");
+}
 
 speakbtn.onclick = function ()
 {
-  recognizing = true;
-  say("How can I help you?");
+    recognizing = true;
+    say("Say this phone number:<br>");
 }
 
-function onendspeak()
+agreebtn.onclick = function (){
+  localStorage.optin  = true;
+  checkoptin();
+}
+
+function onendspeak(number)
 {
     if (!recognizing)
     {
         return;
     }
-    changelabel("Listening...");
-    document.querySelector("#fox").style.display = 'none';
-    document.querySelector("#listening").style.display = 'block';
-    document.querySelector("#lblstatus").style.display = 'block';
-
-    document.querySelector("#weather").style.display = 'none';
-    document.querySelector("#messages").style.display = 'none';
-    document.querySelector("#tel").style.display = 'none';
-    document.querySelector("#fox").style.display = 'none';
-    document.querySelector("#text").style.display = 'none';
-    document.querySelector("#battery").style.display = 'none';
 
     console.log('starting')
     sr.start(); // Validation of sr.grammars occurs here
+    mediaRecorder.start();
     sr.onresult = function(event)
     {
-          recognizing = false;
-          document.querySelector("#listening").style.display = 'none';
+        recognizing = false;
+        mediaRecorder.stop(); 
+        document.querySelector("#listening").style.display = 'none';
+        document.querySelector("#fox").style.display = 'block';
 
-          var final_transcript = '';
-          var score = '';
+        final_transcript = '';
+        // Assemble the transcript from the array of results
+        for (var i = event.resultIndex; i < event.results.length; ++i) {
+            if (event.results[i].isFinal) {
+                console.log("recognition.onresult : isFinal");
+                final_transcript += event.results[i][0].transcript;
+            } 
+        }
 
-          // Assemble the transcript from the array of results
-          for (var i = event.resultIndex; i < event.results.length; ++i) {
-              if (event.results[i].isFinal) {
-                  console.log("recognition.onresult : isFinal");
-                  final_transcript += event.results[i][0].transcript;
-              } else {
-                  console.log("recognition.onresult : not isFinal");
-                  interim_transcript += event.results[i][0].transcript;
-                  score = event.results[i][0].confidence;
-              }
-          }
-
-          changelabel(final_transcript);
-          console.log("interim_transcript: " + final_transcript);
-
+        changelabel("Thank you! <br> Press the microphone to say the next sequence.");
 
     };
 }
 
-function say(phrase,file)
-{
+function say(phrase,file){
+    var number = "(";
+    for (i = 0; i<=9; i++){
+        
+        if (i == 3)
+            number = number.concat(") ")
+        
+        var rnd = Math.random().toString().substring(2,3);
+        var number = number.concat( rnd );
+
+    }
+    phrase = phrase.concat(number);
     changelabel(phrase);
-
-       setTimeout(function() {
-      var speechSynthesisUtterance = new SpeechSynthesisUtterance(phrase);
-      // XXX: Language should be detected based on system language.
-      speechSynthesisUtterance.lang = 'en';
-      speechSynthesisUtterance.addEventListener('end', (function() {
-        // Enable the speak button.
-        //this.setSpeakButtonState(false);
-        onendspeak();
- 
-      }).bind(this));
-      speechSynthesis.speak(speechSynthesisUtterance);
-    }.bind(this),
-    100);
-
+    document.querySelector("#listening").style.display = 'block';
+    document.querySelector("#fox").style.display = 'none';
+    onendspeak(number);
 }
 
-
-function searchcontact(name)
-{
-      var allContacts = navigator.mozContacts.getAll({sortBy: "familyName", sortOrder: "descending"});
-      allContacts.onsuccess = function(event) {
-        var cursor = event.target;
-        if (cursor.result) {
-          console.log("Found from all contacts: " + cursor.result.name[0]  + " tel: " + cursor.result.tel[0].value );
-
-          if (cursor.result.name[0].toLowerCase() == name)
-          {
-            console.log("achou " + cursor.result.name[0].toLowerCase() + " " + cursor.result.tel[0].value );
-            call(cursor.result.tel[0].value);
-          }
-          cursor.continue();
-        } else {
-          console.log("No more contacts");
-        }
-      };
-
-      allContacts.onerror = function() {
-        console.warn("Something went terribly wrong! :(");
-      };
-
-}
-
-
-
-function call(number)
-{
-      // Telephony object
-    var tel = navigator.mozTelephony;
-    // Place a call
-    var telCall = tel.dial(number);
-    telCall.onactive = function(e) {
-        changelabel("");
-        window.console.log('Connected!');
-    }
-    telCall.ondisconnected = function(e) {
-        changelabel("");
-        window.console.log('Disconnected!');
-        // update call history
-    }
-    telCall.onerror = function(e) {
-        changelabel("");
-        window.console.error(e);
-    }
-}
 
 function changelabel(str){
-  document.querySelector("#lblstatus").style.display = 'block';
-  document.querySelector("#lblstatus").innerHTML = str;
+    document.querySelector("#lblstatus").style.display = 'block';
+    document.querySelector("#lblstatus").innerHTML = str;
 }
+
+
+function checkoptin(){
+    if (localStorage.optin){
+        document.querySelector("#optincard").style.display = 'none';
+        document.querySelector("#maindiv").style.display = 'block';
+    }
+}
+
+
 
