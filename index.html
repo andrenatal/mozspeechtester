@@ -6,13 +6,18 @@
   <title>Title of the document</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">  
   <meta name="viewport" content="width=device-width, user-scalable=no">
-    <script type="text/javascript" src="jquery.min.js"></script> 
+ <!--   <script type="text/javascript" src="jquery.min.js"></script> --> 
     <link rel="stylesheet" type="text/css" href="style.css"> 
     <script src="binary.js"></script>
 </head>
-<body>
-<div class='maindiv'>
+<body onload="checkoptin()">
 
+<div id="optincard" class="optincard">
+  <p> <br> This is an internal app from Mozilla engineering team and its intend is collect speech from users targeting the improvement of our speech recognition engines. <br> <br> <br>  Using it, you agree to donate your speech for Mozilla for this solely purpose.</p> <br> 
+  <center><input type="button" id="agreebtn" value="I agree"/></center>
+</div>
+
+<div id="maindiv" class='maindiv'>
   <div id="listening" style="display:none">
     <div style="width:400px;background-color:#1BA1E2;margin:auto;position:relative;display:block" id="ringdiv1" >
     <div id="r1" class="ring"></div>
@@ -35,7 +40,8 @@
       <img src="img/ff.png"/> 
   </div>
 
-  <div style="left:30px; display:block;font-style: italic ; font-weight: normal; font-size: 1.6rem; text-align:center; width:80%; position:absolute;bottom:200px;" id="lblstatus">Please, wait a minute. We are connecting with our server..
+
+  <div style="left:30px; display:block;font-style: italic ; font-weight: normal; font-size: 1.6rem; text-align:center; width:80%; position:absolute;bottom:200px;" id="lblstatus">Please, wait a minute. We are connecting to the server...
   </div>
 
   <div style="width:100%;display:block">

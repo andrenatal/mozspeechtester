@@ -12,6 +12,8 @@ var sgl = new SpeechGrammarList();
 sgl.addFromString("#JSGF V1.0; grammar test;  <numeros> =  oh | 0  | 1 | 2 | 3 | 4 | 5 | 6 | 7 |  8 |  9 ; public <numbers> = <numeros>+; " ,1);
 sr. grammars = sgl;
 
+
+
 // Wait for connection to BinaryJS server
 client.on('open', function(){
     changelabel("You are connected with our server. Please, push the microphone to start testing.");
@@ -67,6 +69,11 @@ speakbtn.onclick = function ()
     say("Say this phone number:<br>");
 }
 
+agreebtn.onclick = function (){
+  localStorage.optin  = true;
+  checkoptin();
+}
+
 function onendspeak(number)
 {
     if (!recognizing)
@@ -118,9 +125,17 @@ function say(phrase,file){
 
 
 function changelabel(str){
-
-  document.querySelector("#lblstatus").style.display = 'block';
-  document.querySelector("#lblstatus").innerHTML = str;
+    document.querySelector("#lblstatus").style.display = 'block';
+    document.querySelector("#lblstatus").innerHTML = str;
 }
+
+
+function checkoptin(){
+    if (localStorage.optin){
+        document.querySelector("#optincard").style.display = 'none';
+        document.querySelector("#maindiv").style.display = 'block';
+    }
+}
+
 
 
