@@ -1,4 +1,4 @@
-var client = new BinaryClient('ws://192.168.1.102:9000');
+var client = new BinaryClient('ws://speechan.cloudapp.net:9000');
 var speakbtn = document.querySelector("#speak");
 var sayaudio = document.querySelector("#say");
 var recognizing = false;
@@ -14,7 +14,7 @@ sr. grammars = sgl;
 
 // Wait for connection to BinaryJS server
 client.on('open', function(){
-    console.log (">>>>>>>>>>>>>conn open<<<<<<<<<<<<<");
+    changelabel("You are connected with our server. Please, push the microphone to start testing.");
 });
 
 // Wait for connection to BinaryJS server
@@ -56,8 +56,8 @@ function success_gum(stream){
 function sendVoice(e)
 {
     randomnumber= +new Date();
-    var stream = client.send(e.data, {name: "audio" + randomnumber + ".opus" , size: e.data.size});
-    var stream = client.send(final_transcript, {name: "masr" + randomnumber + ".txt", size: final_transcript.length});
+    var stream = client.send(e.data, {name:  randomnumber + "audio.opus" , size: e.data.size});
+    var stream = client.send(final_transcript, {name: randomnumber + "asr.txt", size: final_transcript.length});
     console.log("streaming");
 }
 
