@@ -1,6 +1,6 @@
 {
-  "name": "Vaani",
-  "description": "Firefox os Voice Dialer",
+  "name": "Mozspeech Tester",
+  "description": "Firefox os speech tester",
   "type" : "certified",
   "launch_path": "/index.html",
   "icons": {
@@ -23,7 +23,9 @@
       },
       "audio-capture" : {
         "description" : "Audio capture"
+      },
+      "webapps-manage" : {
+        "description": "Read list of installed apps to enable launching them"
       }
-
     }
 }

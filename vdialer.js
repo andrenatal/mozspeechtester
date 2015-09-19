@@ -4,25 +4,33 @@ var speakbtn = document.querySelector("#speak");
 var sayaudio = document.querySelector("#say");
 var recognizing = false;
 var final_transcript = "";
+var sr = new SpeechRecognition();
 
 document.querySelector("#listening").style.display = 'none';
 //document.querySelector("#lblstatus").style.display = 'none';
 
 
-var sr = new SpeechRecognition();
-sr.lang ="en-US";
-var sgl = new SpeechGrammarList();
-sgl.addFromString("#JSGF v1.0; grammar fxosVoiceCommands; <app> = phone | contacts | calendar | camera | clock | usage | e-mail | gallery | marketplace | music | settings | messages | video | customizer | hackerplace | studio | sharing | twitter | firesea irc | calculator | webmaker  | notes | swooop | facebook | bugzilla lite | buddyup | mozspeech | youtube | here maps | maps online | irccnotify | camera | dialer; <contact> = adriano | mozilla | adriano mozilla | alencar | dnk | alencar dnk | desigan | chinniah | desigan chinniah | samanta | clara | vilas | boas | samanta clara vilas boas;<digit> = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;  public <simple> =  open <app> |  dial <digit>+ | call <contact>;" ,1);
-sr. grammars = sgl;
+buildAppsGrammar();
 
+
+function startengines(){
+    var grammar = "#JSGF v1.0; grammar fxosVoiceCommands; <app> = "+appsGrammar+";  <contact> = " + contactsGrammar + "; <digit> = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;  public <simple> =  open <app> |  dial <digit>+ | call <contact>;"
+
+    console.log(grammar);
+
+    sr = new SpeechRecognition();
+    sr.lang ="en-US";
+    var sgl = new SpeechGrammarList();
+    sgl.addFromString(grammar ,1);
+    sr. grammars = sgl;
+    changelabel("Push the microphone and say any app or contact name");
+}
 
 /*
 var speechrecognitionlist = new SpeechGrammarList();
 speechrecognitionlist.addFromString  ( " #JSGF V1.0; grammar test; <numbers> = favela maloqueiro lixeira | zero | one | two | three | four | five | six | seven | eight | nine; public <final_digits> = <numbers>+;", 1 );
 var recognition = new SpeechRecognition();
 */
-
-console.log("speakbtn");
 
 speakbtn.onclick = function ()
 {
@@ -169,10 +177,7 @@ function say(phrase)
         // Enable the speak button.
         //this.setSpeakButtonState(false);
         onendspeak();
-        // If we're waiting for a command, start listening.
-        if (aIsWaitingForCommandResponse) {
-          this.listen();
-        }
+
       }).bind(this));
       speechSynthesis.speak(speechSynthesisUtterance);
     }.bind(this),
