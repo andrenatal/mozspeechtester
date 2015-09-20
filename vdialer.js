@@ -14,7 +14,7 @@ buildAppsGrammar();
 
 
 function startengines(){
-    var grammar = "#JSGF v1.0; grammar fxosVoiceCommands; <app> = "+appsGrammar+";  <contact> = " + contactsGrammar + "; <digit> = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;  public <simple> =  open <app> |  dial <digit>+ | call <contact>;"
+    var grammar = "#JSGF v1.0; grammar fxosVoiceCommands;  <timer> = set timer for (<minutes> | <extense> ) minute;<minutes> = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | ten | eleven | twelve | thirteen | fourteen | fifteen | sixteen | seventeen | eighteen | nineteen ; <extense> = <extense_0> [<extense_1>]; <extense_0> = twenty | thirty | forty | fifty ;  <extense_1> = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9  ; <app> = phone | contacts | "+appsGrammar+";  <contact> = " + contactsGrammar + "; <digit> = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;  public <simple> =  open <app> |  dial <digit>+ | call <contact> | <timer>;"
 
     console.log(grammar);
 
@@ -25,12 +25,6 @@ function startengines(){
     sr. grammars = sgl;
     changelabel("Push the microphone and say any app or contact name");
 }
-
-/*
-var speechrecognitionlist = new SpeechGrammarList();
-speechrecognitionlist.addFromString  ( " #JSGF V1.0; grammar test; <numbers> = favela maloqueiro lixeira | zero | one | two | three | four | five | six | seven | eight | nine; public <final_digits> = <numbers>+;", 1 );
-var recognition = new SpeechRecognition();
-*/
 
 speakbtn.onclick = function ()
 {
