@@ -1,6 +1,6 @@
 {
-  "name": "Mozspeech",
-  "description": "Mozspeech",
+  "name": "Mozspeech Tester",
+  "description": "Firefox os speech tester",
   "type" : "certified",
   "launch_path": "/index.html",
   "icons": {
@@ -10,13 +10,22 @@
   },
   "developer": {
     "name": "Andre Natal",
-    "url": "http://www.mozilla.org"
+    "url": "http://your-homepage-here.org"
   },
   "default_locale": "en",
    "permissions": {
+      "contacts": {
+        "description" : "Reading out contacts",
+        "access": "readcreate"
+      },
+      "telephony": {
+        "description" : "Make calls"
+      },
       "audio-capture" : {
         "description" : "Audio capture"
+      },
+      "webapps-manage" : {
+        "description": "Read list of installed apps to enable launching them"
       }
-
     }
 }
