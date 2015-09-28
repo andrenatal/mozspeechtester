@@ -14,7 +14,18 @@ buildAppsGrammar();
 
 
 function startengines(){
-    var grammar = "#JSGF v1.0; grammar fxosVoiceCommands;  <timer> = set timer for (<minutes> | <extense> ) minutes;<minutes> = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | ten | eleven | twelve | thirteen | fourteen | fifteen | sixteen | seventeen | eighteen | nineteen ; <extense> = <extense_0> [<extense_1>]; <extense_0> = twenty | thirty | forty | fifty ;  <extense_1> = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9  ; <app> = phone | contacts | "+appsGrammar+";  <contact> = " + contactsGrammar + "; <digit> = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;  public <simple> =  open <app> |  dial <digit>+ | call <contact> | <timer>;"
+    var grammar = "#JSGF v1.0; grammar fxosVoiceCommands; " +
+            //TIMER
+        "<timer> = règle le minuteur sur [( <hours> heures )] [et] [ (<minutes> | <extense>)  minutes] ; <hours> = un | deux | trois | quatre | cinq | six | sept | huit | neuf | dizaine | onze | douze | treize | quatorze | quinzaine | seize | dix-sept | dix-huit ans | dix-neuf | vingt | vingt et un | vingt-deux | vingt-trois; <minutes> = un | deux | trois | quatre | cinq | six | sept | huit | neuf | dix | onze | douze | treize | quatorze | quinzaine | seize | dix-sept | dix-huit ans | dix-neuf; <extense> = <extense_0> [<extense_1>]; <extense_0> = vingt | trentaine | quarante | cinquante ;  <extense_1> = un | deux | trois | quatre | cinq | six | sept | huit | neuf ;" +
+
+            // ALARM
+        "<alarm> = programme une alarme pour [( <hours_alarm> )] [ (<minutes> | <extense>)]  ( a m | p m ) ; <hours_alarm> =    one | two | three | four | five | six | seven | eight | nine | ten | eleven | twelve ;  " +
+
+            // APP
+        "<app> = phone | contacts | "+appsGrammar+";" +
+
+            //CONTACT
+        "<contact> = " + contactsGrammar + ";  public <simple> = ouvre le application  <app> | appelle <contact> | <timer> | <alarm>;   ;"
 
     console.log(grammar);
 
@@ -76,85 +87,6 @@ function onendspeak()
           changelabel(final_transcript);
           console.log("interim_transcript: " + final_transcript);
 
-/*
-          if (final_transcript.indexOf('weather') > -1)
-          {
-            say("Today it is 75 degrees and sunny in Mountain View");
-            document.querySelector("#weather").style.display = 'none';
-            document.querySelector("#messages").style.display = 'none';
-            document.querySelector("#tel").style.display = 'none';
-            document.querySelector("#fox").style.display = 'none';
-            document.querySelector("#text").style.display = 'none';
-            document.querySelector("#battery").style.display = 'none';
-
-            document.querySelector("#weather").style.display = 'block';
-
-          }
-
-         if (final_transcript.indexOf('messages') > -1)
-          {
-            say("You have 3 texts and 20 unread emails.");
-            document.querySelector("#weather").style.display = 'none';
-            document.querySelector("#messages").style.display = 'none';
-            document.querySelector("#tel").style.display = 'none';
-            document.querySelector("#fox").style.display = 'none';
-            document.querySelector("#text").style.display = 'none';
-            document.querySelector("#battery").style.display = 'none';
-
-            document.querySelector("#messages").style.display = 'block';
-
-          }
-
-         if (final_transcript.indexOf('text') > -1)
-          {
-            say("Ok. I am texting Josh saying you are late");
-            document.querySelector("#weather").style.display = 'none';
-            document.querySelector("#messages").style.display = 'none';
-            document.querySelector("#tel").style.display = 'none';
-            document.querySelector("#fox").style.display = 'none';
-            document.querySelector("#text").style.display = 'none';
-            document.querySelector("#battery").style.display = 'none';
-
-            document.querySelector("#text").style.display = 'block';
-
-          }
-
-         if (final_transcript.indexOf('battery') > -1)
-          {
-            say("I still have 75 percent of battery remaining.");
-            document.querySelector("#weather").style.display = 'none';
-            document.querySelector("#messages").style.display = 'none';
-            document.querySelector("#tel").style.display = 'none';
-            document.querySelector("#fox").style.display = 'none';
-            document.querySelector("#text").style.display = 'none';
-            document.querySelector("#battery").style.display = 'none';
-
-            document.querySelector("#battery").style.display = 'block';
-
-          }
-
-          if (final_transcript.indexOf('call') > -1)
-          {
-            say("Ok. I am calling Samanta.")
-
-            document.querySelector("#weather").style.display = 'none';
-            document.querySelector("#messages").style.display = 'none';
-            document.querySelector("#tel").style.display = 'none';
-            document.querySelector("#fox").style.display = 'none';
-            document.querySelector("#text").style.display = 'none';
-            document.querySelector("#battery").style.display = 'none';
-
-            document.querySelector("#tel").style.display = 'block';
-
-            setTimeout(function(){
-
-                searchcontact("Samanta");
-
-             }, 5000);
-
-
-          }
-          */
     };
 }
 
