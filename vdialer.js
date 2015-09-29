@@ -14,7 +14,24 @@ buildAppsGrammar();
 
 
 function startengines(){
-    var grammar = "#JSGF v1.0; grammar fxosVoiceCommands;  <timer> = set timer for (<minutes> | <extense> ) minutes;<minutes> = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | ten | eleven | twelve | thirteen | fourteen | fifteen | sixteen | seventeen | eighteen | nineteen ; <extense> = <extense_0> [<extense_1>]; <extense_0> = twenty | thirty | forty | fifty ;  <extense_1> = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9  ; <app> = phone | contacts | "+appsGrammar+";  <contact> = " + contactsGrammar + "; <digit> = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;  public <simple> =  open <app> |  dial <digit>+ | call <contact> | <timer>;"
+
+
+
+    var grammar = "#JSGF v1.0; grammar fxosVoiceCommands; " +
+
+            //TIMER
+        "<timer> = set timer for [( <hours> hours )] [and] [ (<minutes> | <extended>)  minutes] ; <hours> = one | two | three | four | five | six | seven | eight | nine | ten | eleven | twelve | thirteen | fourteen | fifteen | sixteen | seventeen | eighteen | nineteen | twenty | twenty one | twenty two | twenty three; <minutes> = one | two | three | four | five | six | seven | eight | nine | ten | eleven | twelve | thirteen | fourteen | fifteen | sixteen | seventeen | eighteen | nineteen ;  <extended> = <extended_0> [<extended_1>]; <extended_0> = twenty | thirty | forty | fifty ; <extended_1> = one | two | three | four | five | six | seven | eight | nine;" +
+
+            // ALARM
+        "<alarm> = set an alarm for [( <hours_alarm> )] [ (<minutes> | <extended>)]  ( a m | p m ) ; <hours_alarm> =    one | two | three | four | five | six | seven | eight | nine | ten | eleven | twelve;" +
+
+            // APP
+        "<app> = phone | contacts | "+appsGrammar+"; " +
+
+            //CONTACT
+        "<contact> = " + contactsGrammar + ";" +
+
+        "public <simple> = open <app> | call <contact> | <timer> | <alarm>;";
 
     console.log(grammar);
 
