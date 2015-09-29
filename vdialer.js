@@ -16,24 +16,23 @@ buildAppsGrammar();
 function startengines(){
     var grammar = "#JSGF v1.0; grammar fxosVoiceCommands; " +
             //TIMER
-        "<timer> = règle le minuteur sur [( <hours> heures )] [et] [ (<minutes> | <extense>)  minutes] ; <hours> = un | deux | trois | quatre | cinq | six | sept | huit | neuf | dizaine | onze | douze | treize | quatorze | quinzaine | seize | dix-sept | dix-huit ans | dix-neuf | vingt | vingt et un | vingt-deux | vingt-trois; <minutes> = un | deux | trois | quatre | cinq | six | sept | huit | neuf | dix | onze | douze | treize | quatorze | quinzaine | seize | dix-sept | dix-huit ans | dix-neuf; <extense> = <extense_0> [<extense_1>]; <extense_0> = vingt | trentaine | quarante | cinquante ;  <extense_1> = un | deux | trois | quatre | cinq | six | sept | huit | neuf ;" +
+        "<timer> = establecer un temporizador para [( <hours> horas )] [and] [ (<minutes> | <extended>)  minutes] ; <hours> = uno | dos | tres | cuatro | cinco | seix | siete | ocho | nueve | diez | once | doce | trece | catorce | quince | dieciséis | diecisiete | dieciocho | diecinueve | veinte | veinte uno | veinte dos | veinte tres; <minutes> = uno | dos | tres | cuatro | cinco | seix | siete | ocho | nueve | diez | once | doce | trece | catorce | quince | dieciseis | diecisiete | dieciocho | diecinueve; <extended> = <extended_0> [<extended_1>]; <extended_0> = veinte | treinta | cuarenta | cincuenta ; <extended_1> = uno | dos | tres | cuatro | cinco | seix | siete | ocho | nueve  ;" +
 
             // ALARM
-        "<alarm> = programme une alarme pour [( <hours_alarm> )] [ (<minutes> | <extense>)]  ( a m | p m ) ; <hours_alarm> =    one | two | three | four | five | six | seven | eight | nine | ten | eleven | twelve ;  " +
+        "<alarm> = establecer un alarma para [( <hours_alarm> )]  [ e (<minutes> | <extended>)] [da] ( manana | noche | tarde )  ; <hours_alarm> =    uno | dos | tres | cuatro | cinco | seix | siete | ocho | nueve | diez | once | doce ;" +
 
             // APP
         "<app> = phone | contacts | "+appsGrammar+";" +
 
             //CONTACT
-        "<contact> = " + contactsGrammar + ";  public <simple> = ouvre le application  <app> | appelle <contact> | <timer> | <alarm>;   ;"
+        "<contact> = " + contactsGrammar + ";  public <simple> = arrancar <app> | llamar <contact> | <timer> | <alarm>  ;"
 
     console.log(grammar);
 
     sr = new SpeechRecognition();
-    sr.lang ="en-US";
     var sgl = new SpeechGrammarList();
     sgl.addFromString(grammar ,1);
-    sr. grammars = sgl;
+    //sr.grammars = sgl;
     changelabel("Push the microphone and say any app or contact name");
 }
 
